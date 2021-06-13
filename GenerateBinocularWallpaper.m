@@ -1,6 +1,6 @@
 function GenerateBinocularWallpaper(ress,bgcolor)
 
-% Generates wallpapers that can be used for checking/adjusting locations binocular(dual) displays
+% Generates a wallpaper that can be used for checking/adjusting locations binocular(dual) displays
 % function GenerateBinocularWallpaper(ress,:bgcolor)
 % (: is optional)
 %
@@ -34,7 +34,7 @@ function GenerateBinocularWallpaper(ress,bgcolor)
 %
 %
 % Created    : "2016-01-17 14:57:53 ban"
-% Last Update: "2021-06-14 02:37:24 ban"
+% Last Update: "2021-06-14 02:46:06 ban"
 
 %% check the input variables
 if nargin<1 || isempty(ress), help(mfilename()); return; end
