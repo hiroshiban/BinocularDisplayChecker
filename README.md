@@ -2,7 +2,7 @@
 # **README on BinocularDisplayChecker**
 
 <div>Created    : "2016-01-17 14:57:53 ban"</div>
-<div>Last Update: "2021-06-17 00:55:47 ban"
+<div>Last Update: "2021-06-17 00:59:59 ban"
 
 **********
 
@@ -40,7 +40,7 @@ function GenerateBinocularWallpaperCopy(ress,:bgcolor)
 (: is optional)
 ```
 
-**input (common between the two functions)**
+**input (common between the two main functions)**
 
 <pre>
 ress: display resolutions, a 3 x 2 matrix.
@@ -61,7 +61,7 @@ bgcolor : (optional) background to be used on the console display (display 1)
           bgcolor=[127,127,127] by default.
 </pre>
 
-**output (common between the two functions)** 
+**output (common between the two main functions)** 
 
 <pre>
 no output variable, the generated wallpaper image is saved in the current directory as wallpaper_[1|2|3]_display*.png
@@ -69,5 +69,5 @@ no output variable, the generated wallpaper image is saved in the current direct
 
 **NOTE**
 
-Some other tools (images) that can be used to check whether the binocular display setups are properly done are also available.  
+Some other tools (images) that can be used to check whether the binocular display setups are properly done are also available.
 Please see the files in ~/BinocularDisplayChecker/stereo_checker.  
