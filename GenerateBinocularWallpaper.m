@@ -34,7 +34,7 @@ function GenerateBinocularWallpaper(ress,bgcolor)
 %
 %
 % Created    : "2016-01-17 14:57:53 ban"
-% Last Update: "2021-06-14 02:46:06 ban"
+% Last Update: "2021-06-16 19:26:11 ban"
 
 %% check the input variables
 if nargin<1 || isempty(ress), help(mfilename()); return; end
