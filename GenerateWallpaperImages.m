@@ -42,7 +42,7 @@ function img=GenerateWallpaperImages(ress,colors,linewidth,save_flg,scrID)
 %
 %
 % Created    : "2021-06-16 13:41:53 ban"
-% Last Update: "2021-06-16 19:24:46 ban"
+% Last Update: "2021-06-16 23:49:13 ban"
 
 %% check the input variables.
 if nargin<1 || isempty(ress), help(mfilename()); return; end

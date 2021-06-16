@@ -1,10 +1,10 @@
-function GenerateBinocularWallpaper(ress,bgcolor)
+function GenerateBinocularWallpaperGen(ress,bgcolor)
 
 % Generates a wallpaper that can be used for checking/adjusting locations binocular(dual) displays
-% function GenerateBinocularWallpaper(ress,:bgcolor)
+% function GenerateBinocularWallpaperGen(ress,:bgcolor)
 % (: is optional)
 %
-% This function generates a special wallpaper using the images stored in ~/BinocularDisplayChecker/pngs.
+% This function generates a special wallpaper on which several line and annulus guidelines are drawn.
 % In binocular stimulus (e.g. stereograms, or binocular rivalry) presentation, we may present left and right
 % eye images onto two displays separately (and we may also use an additional display for a console).
 % In such a situation, a strict positional adjustment of the two displays will be necessary for accurate
@@ -12,8 +12,8 @@ function GenerateBinocularWallpaper(ress,bgcolor)
 % adjustment by presenting guidelines on the screen.
 %
 % [example]
-% >> GenerateBinocularWallpaper([1920,1200;1920,1080;1920,1080],[127,127,127]);
-% >> GenerateBinocularWallpaper([0,0;1920,1080;1920,1080],[127,127,127]);
+% >> GenerateBinocularWallpaperGen([1920,1200;1920,1080;1920,1080],[127,127,127]);
+% >> GenerateBinocularWallpaperGen([0,0;1920,1080;1920,1080],[127,127,127]);
 %
 % [input]
 % ress: display resolutions, a 3 x 2 matrix.
@@ -21,8 +21,6 @@ function GenerateBinocularWallpaper(ress,bgcolor)
 %       here, display 1 is for a console, display 2 is for presenting left-eye image, and display 2 is for
 %       presenting right-eye image.
 %       e.g. ress=[1920,1200; 1920, 1080; 1920, 1080].
-%       currently, available resolutions are pairs of
-%       [1024, 768], [1280,1024], [1920,1080], [1920,1200], and [2560, 1440] (width,height).
 %       NOTE: if you don't use the console display (display 1) or the right-eye-image (display 3),
 %       please set 0 to ress of these displays. e.g. ress=[0,0; 1920, 1080; 1920, 1080].
 % bgcolor : (optional) background to be used on the console display (display 1)
@@ -30,11 +28,11 @@ function GenerateBinocularWallpaper(ress,bgcolor)
 %
 % [output]
 % no output variable, the generated wallpaper image is saved in the current directory as
-% wallpaper_[1|2|2]_display*.png
+% wallpaper_[1|2|3]_display*.png
 %
 %
 % Created    : "2016-01-17 14:57:53 ban"
-% Last Update: "2021-06-16 19:26:11 ban"
+% Last Update: "2021-06-17 00:08:27 ban"
 
 %% check the input variables
 if nargin<1 || isempty(ress), help(mfilename()); return; end
@@ -57,8 +55,8 @@ wimg=uint8( repmat(reshape(bgcolor,[1,1,3]),[max_res_v,sum(ress(:,1)),1]) );
 if ress(1,1)~=0 && ress(2,1)==0 && ress(3,1)==0
   fprintf('processing display 1 alone with resolution: [width, height]=[%d, %d]...',ress(1,1),ress(1,2));
 
-  img=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_mono_white_%dx%d.png',ress(1,1),ress(1,2))));
-  wimg(1:ress(1,2),1:ress(1,1),:)=img;
+  img=GenerateWallpaperImages([ress(1,1),ress(1,2)]);
+  wimg(1:ress(1,2),1:ress(1,1),:)=img{1};
 
   imwrite(wimg,sprintf('wallpaper_1_display_%dx%d.png',ress(1,1),ress(1,2)),'png');
   fprintf('completed.\n');
@@ -67,8 +65,8 @@ if ress(1,1)~=0 && ress(2,1)==0 && ress(3,1)==0
 elseif ress(1,1)==0 && ress(2,1)~=0 && ress(3,1)==0
   fprintf('processing display 2 alone with resolution: [width, height]=[%d, %d]...',ress(2,1),ress(2,2));
 
-  img=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_mono_white_%dx%d.png',ress(2,1),ress(2,2))));
-  wimg(1:ress(2,2),1:ress(2,1),:)=img;
+  img=GenerateWallpaperImages([ress(2,1),ress(2,2)]);
+  wimg(1:ress(2,2),1:ress(2,1),:)=img{1};
 
   imwrite(wimg,sprintf('wallpaper_1_display_%dx%d.png',ress(2,1),ress(2,2)),'png');
   fprintf('completed.\n');
@@ -77,8 +75,8 @@ elseif ress(1,1)==0 && ress(2,1)~=0 && ress(3,1)==0
 elseif ress(1,1)==0 && ress(2,1)==0 && ress(3,1)~=0
   fprintf('processing display 3 alone with resolution: [width, height]=[%d, %d]...',ress(3,1),ress(3,2));
 
-  img=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_mono_white_%dx%d.png',ress(3,1),ress(3,2))));
-  wimg(1:ress(3,2),1:ress(3,1),:)=img;
+  img=GenerateWallpaperImages([ress(3,1),ress(3,2)]);
+  wimg(1:ress(3,2),1:ress(3,1),:)=img{1};
 
   imwrite(wimg,sprintf('wallpaper_1_display_%dx%d.png',ress(3,1),ress(3,2)),'png');
   fprintf('completed.\n');
@@ -87,8 +85,8 @@ elseif ress(1,1)==0 && ress(2,1)==0 && ress(3,1)~=0
 elseif ress(1,1)~=0 && ress(2,1)~=0 && ress(3,1)==0
   fprintf('processing display 1 & 2 with resolutions: [width, height]=[%d, %d] & [%d, %d]...',ress(1,1),ress(1,2),ress(2,1),ress(2,2));
 
-  img=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_mono_white_%dx%d.png',ress(2,1),ress(2,2))));
-  wimg(1:ress(2,2),ress(1,1)+1:ress(1,1)+ress(2,1),:)=img;
+  img=GenerateWallpaperImages([ress(2,1),ress(2,2)]);
+  wimg(1:ress(2,2),ress(1,1)+1:ress(1,1)+ress(2,1),:)=img{2};
 
   imwrite(wimg,sprintf('wallpaper_2_displays_%dx%d_%dx%d.png',ress(1,1),ress(1,2),ress(2,1),ress(2,2)),'png');
   fprintf('completed.\n');
@@ -97,8 +95,8 @@ elseif ress(1,1)~=0 && ress(2,1)~=0 && ress(3,1)==0
 elseif ress(1,1)~=0 && ress(2,1)==0 && ress(3,1)~=0
   fprintf('processing display 1 & 3 with resolutions: [width, height]=[%d, %d] & [%d, %d]...',ress(1,1),ress(1,2),ress(3,1),ress(3,2));
 
-  img=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_mono_white_%dx%d.png',ress(3,1),ress(3,2))));
-  wimg(1:ress(3,2),ress(1,1)+1:ress(1,1)+ress(3,1),:)=img;
+  img=GenerateWallpaperImages([ress(3,1),ress(3,2)]);
+  wimg(1:ress(3,2),ress(1,1)+1:ress(1,1)+ress(3,1),:)=img{3};
 
   imwrite(wimg,sprintf('wallpaper_2_displays_%dx%d_%dx%d.png',ress(1,1),ress(1,2),ress(3,1),ress(3,2)),'png');
   fprintf('completed.\n');
@@ -107,10 +105,10 @@ elseif ress(1,1)~=0 && ress(2,1)==0 && ress(3,1)~=0
 elseif ress(1,1)==0 && ress(2,1)~=0 && ress(3,1)~=0
   fprintf('processing display 2 & 3 with resolutions: [width, height]=[%d, %d] & [%d, %d]...',ress(2,1),ress(2,2),ress(3,1),ress(3,2));
 
-  img_L=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_left_magenda_%dx%d.png',ress(2,1),ress(2,2))));
-  img_R=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_right_cyan_%dx%d.png',ress(3,1),ress(3,2))));
-  wimg(1:ress(2,2),1:ress(2,1),:)=img_L;
-  wimg(1:ress(3,2),ress(2,1)+1:ress(2,1)+ress(3,1),:)=img_R;
+  img_L=GenerateWallpaperImages([ress(2,1),ress(2,2)]);
+  img_R=GenerateWallpaperImages([ress(3,1),ress(3,2)]);
+  wimg(1:ress(2,2),1:ress(2,1),:)=img_L{2};
+  wimg(1:ress(3,2),ress(2,1)+1:ress(2,1)+ress(3,1),:)=img_R{3};
 
   imwrite(wimg,sprintf('wallpaper_2_displays_%dx%d_%dx%d.png',ress(2,1),ress(2,2),ress(3,1),ress(3,2)),'png');
   fprintf('completed.\n');
@@ -119,10 +117,10 @@ elseif ress(1,1)==0 && ress(2,1)~=0 && ress(3,1)~=0
 elseif ress(1,1)~=0 && ress(2,1)~=0 && ress(3,1)~=0
   fprintf('processing display all 1-3 with resolutions: [width, height]=[%d, %d], [%d, %d], [%d, %d]...',ress(1,1),ress(1,2),ress(2,1),ress(2,2),ress(3,1),ress(3,2));
 
-  img_L=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_left_magenda_%dx%d.png',ress(2,1),ress(2,2))));
-  img_R=imread(fullfile(fileparts(mfilename('fullpath')),'pngs',sprintf('image_right_cyan_%dx%d.png',ress(3,1),ress(3,2))));
-  wimg(1:ress(2,2),ress(1,1)+1:ress(1,1)+ress(2,1),:)=img_L;
-  wimg(1:ress(3,2),sum(ress([1,2],1))+1:sum(ress([1,2],1))+ress(3,1),:)=img_R;
+  img_L=GenerateWallpaperImages([ress(2,1),ress(2,2)]);
+  img_R=GenerateWallpaperImages([ress(3,1),ress(3,2)]);
+  wimg(1:ress(2,2),ress(1,1)+1:ress(1,1)+ress(2,1),:)=img_L{2};
+  wimg(1:ress(3,2),sum(ress([1,2],1))+1:sum(ress([1,2],1))+ress(3,1),:)=img_R{3};
 
   imwrite(wimg,sprintf('wallpaper_3_displays_%dx%d_%dx%d_%dx%d.png',ress(1,1),ress(1,2),ress(2,1),ress(2,2),ress(3,1),ress(3,2)),'png');
   fprintf('completed.\n');
