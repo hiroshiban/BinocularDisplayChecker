@@ -70,5 +70,5 @@ the current directory as wallpaper_[1|2|3]_display*.png
 
 **NOTE**
 
-Some other tools (images) that can be used to check whether the binocular display setups are properly done are also available.
+Some other images, which can be used to check whether the binocular display setups are properly done, are also available.
 Please see the files in ~/BinocularDisplayChecker/stereo_checker.  
