@@ -19,7 +19,7 @@ For generating guideline wallpapers, this toolbox provides two different ways as
 2. The pre-existing PNG images (stored in ~/BinocularDisplayChecker/pngs/) are copied and combined to make the required wall papers.
    You can use **GenerateBinocularWallpaperCopy** for this method.  
 
-   Here, this second procedure is easier and simpler, while it may not be user friendly only limited pairs of display resolutions can be accepted since pre-existing images with fixed image sizes. However, I still keep and prefer this second procedure as we can embed outlined polished texts on the images by using the Adobe Illustrator's font drawing functionality.  
+   Here, this second procedure is easier and simpler, while it may not be user friendly since only limited pairs of display resolutions can be handled since pre-existing images with fixed image sizes are just copied and combined. However, I still keep and prefer this second procedure as we can embed outlined polished texts on the images by using the Adobe Illustrator's font drawing functionality.  
 
 For the pragmatic purpose, there would be no difference between these two procedures. Please select one based on your own preference.
 
