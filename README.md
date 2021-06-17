@@ -64,7 +64,8 @@ bgcolor : (optional) background to be used on the console display (display 1)
 **output (common between the two main functions)** 
 
 <pre>
-no output variable, the generated wallpaper image is saved in the current directory as wallpaper_[1|2|3]_display*.png
+no output variable, the generated wallpaper image is saved in
+the current directory as wallpaper_[1|2|3]_display*.png
 </pre>
 
 **NOTE**
