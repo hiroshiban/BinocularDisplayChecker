@@ -6,7 +6,7 @@
 
 **********
 
-# <a name = "Menu"> **BinocularDisplayChecker -- Left/right-eye image position adjustment tool** </a>
+# <a name = "Menu"> **BinocularDisplayChecker -- Left/right-eye image position adjustment tool for neuroimaging/psychophysics experiments** </a>
 
 ![BinocularDisplayChecker](imgs/BinocularDisplayChecker.png)
 
